@@ -1,0 +1,84 @@
+# Fonction main
+main:
+    irmovl stack, %esp                # Initialise la pile
+    
+    # Test 1 : 0 avant le nombre de mots max
+    irmovl src1, %esi                 # Place l'adresse du tableau source1 dans %esi
+    irmovl dst1, %edi                 # Place l'adresse du tableau destination1 dans %edi
+    irmovl 4, %ecx                    # Nombre maximum d'éléments n à copier 
+    call strncpy                      # Appelle strncpy pour le premier test
+
+    # Test 2 : 0  plus loin que le nombre de mots à copier
+    irmovl src2, %esi                 # Place l'adresse du tableau source2 dans %esi
+    irmovl dst2, %edi                 # Place l'adresse du tableau destination2 dans %edi
+    irmovl 3, %ecx                    # Nombre maximum d'éléments n à copier 
+    call strncpy                      # Appelle strncpy pour le second test
+
+    halt                              # Arrêt la programme
+
+# Fonction strncpy
+strncpy:
+    irmovl 0, %eax                    # Initialise l'indice i à 0 
+boucle:
+    rrmovl %ecx, %edx                 # Copie n dans %edx 
+    subl %eax, %edx                   # Calcule n-i
+    jl fin                            # Si i > n, on saute à la fin 
+    je fin                            # Si i == n, on saute aussi à la fin 
+
+    mrmovl 0(%esi), %ebx              # Charge src[i] (à l'adresse %esi) dans %ebx
+    rmmovl %ebx, 0(%edi)              # Copie src[i] dans dst[i] (à l'adresse %edi)
+
+    andl %ebx, %ebx                   # Teste si src[i] == 0 
+    je fin                            # Si src[i] == 0, on saute à la fin (sentinelle trouvée)
+
+    # Avance les pointeurs source et destination de 4 octets 
+    incl %esi                         # Avance %esi de 1 octet
+    incl %esi
+    incl %esi
+    incl %esi                        
+    # Après 4×incl, %esi avance d'un entier (4 octets)
+    incl %edi
+    incl %edi
+    incl %edi
+    incl %edi  
+    # Idem pour %edi
+
+    incl %eax                         # Incrémente i (i++) 
+    jmp boucle                          # Continuer
+
+fin:
+    ret                               # Retour à l'appelant
+
+#  Définir les emplacements mémoires
+.pos 0x100
+src1:
+    .long 2                           
+    .long 3                          
+    .long 0                           # 0 avant le nombre max de mots (test 1) 
+    .long 99                         
+
+.pos 0x120
+dst1:                                 # dst1, initialisé à 0
+    .long 0
+    .long 0
+    .long 0
+    .long 0                          
+
+.pos 0x140
+src2:
+    .long 9
+    .long 8
+    .long 7
+    .long 6                           
+    # src2, pas de 0 avant n éléments (doit être copier 3 éléments ici)
+
+.pos 0x160
+dst2:                                # dst2, initialisé à 0
+    .long 0
+    .long 0
+    .long 0
+    .long 0                           
+
+# Définir l'emplacement de la pile
+.pos 0x200
+stack:                                

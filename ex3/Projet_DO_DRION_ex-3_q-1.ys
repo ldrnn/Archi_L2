@@ -1,0 +1,10 @@
+                .pos 0
+        
+init:   # Tests de fonctionnement de loop
+        irmovl 3, %ecx    # compteur de boucle
+        irmovl 0, %eax    # eax = 0
+    
+boucle:
+        iaddl 1, %eax # eax++
+        loop boucle   # décrémente ecx, si ecx != 0 alros on saute à boucle
+        halt

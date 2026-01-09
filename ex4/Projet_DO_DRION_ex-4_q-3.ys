@@ -1,0 +1,70 @@
+.pos 0
+    irmovl stack, %esp        # Initialisation pile
+
+    # Test 1 : 0 avant le nombre de mots max
+    irmovl dest1, %eax         # %eax = dest1
+    irmovl src1, %edx          # %edx = src1
+    irmovl 5, %ecx             # Copier au plus 5 mots
+    call strncpy               # Appel de notre fonction
+
+    # Test 2 : 0 plus loin que le nombre de mots à copier
+    irmovl dest2, %eax         # %eax = dest2
+    irmovl src2, %edx          # %edx = src2
+    irmovl 4, %ecx             # Copier 4 mots
+    call strncpy               # Appel de notre fonction
+
+    halt
+
+# Fonction strncpy
+strncpy:
+loop_start:
+    mrmovl (%edx), %esi        # Charger mot depuis src
+    andl %esi, %esi            # Mettre à jour les flags (ZF=1 si %esi==0)
+    je stop                    # Si mot == 0, fin de copie
+
+    rmmovl %esi, (%eax)        # Copier mot dans dest
+    iaddl 4, %edx              # src++
+    iaddl 4, %eax              # dest++
+    loopne loop_start          # Décrémenter %ecx et boucler si %ecx != 0 et ZF = 0
+
+stop:
+    ret
+
+# Données
+.pos 0x100
+src1:
+    .long 10
+    .long 20
+    .long 0      # 0 avant le nombre max de mots (test 1)
+    .long 30
+    .long 40
+
+src2:
+    .long 1
+    .long 2
+    .long 3
+    .long 4      # Aucun 0 dans les mots à copier (test 2)
+    .long 5      
+
+dest1:
+    .long 0
+    .long 0
+    .long 0
+    .long 0
+    .long 0
+
+dest2:
+    .long 0
+    .long 0
+    .long 0
+    .long 0
+    .long 0
+
+# Pile
+.pos 0x200
+stack:
+    .long 0
+    .long 0
+    .long 0
+    .long 0
+    .long 0

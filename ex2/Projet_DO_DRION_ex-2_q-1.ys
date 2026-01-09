@@ -1,0 +1,12 @@
+            .pos 0
+        
+init:   # Tests de fonctionnement de incl et decl
+        irmovl 5, %eax  # eax = 5
+        irmovl 11, %ebx # ebx = 11
+        
+        incl %eax       # eax = 6
+        decl %ebx       # ebx = 10
+        decl %eax       # eax = 5
+        incl %eax       # eax = 6
+        
+        halt
