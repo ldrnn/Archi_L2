@@ -22,7 +22,7 @@ The goal of the project was to extend the Y86 processor by adding new instructio
 - Jump to a label while %ecx != 0
 - Test with a simple counter loop
 
-### **Ex 4 — Adding `loope` and `loopne`**
+### **Ex 4 — Adding loope and loopne**
 - Extend loop with conditional behavior based on the Zero Flag (ZF)
 - Implement loope (loop while equal) and loopne (loop while not equal)
 - Write an improved version of strncpy using loopne
