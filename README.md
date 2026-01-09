@@ -1,9 +1,7 @@
-# Archi_L2
+# Y86 Architecture Project
 
-This repository contains my work for a two‑year university project in computer architecture, using the Y86 instruction set and control logic.  
+A two‑year university project in computer architecture, using the Y86 instruction set and control logic.  
 The goal of the project was to extend the Y86 processor by adding new instructions, modifying the control logic, and writing assembly programs to test the behavior of these extensions.
-
----
 
 ## List of Exercises
 
