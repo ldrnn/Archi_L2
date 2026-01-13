@@ -1,7 +1,13 @@
 # Y86 Architecture Project
 
-A two‑year university project in computer architecture, using the Y86 instruction set and control logic.  
+A second year university project in computer architecture, using the Y86 instruction set and control logic.  
 The goal of the project was to extend the Y86 processor by adding new instructions, modifying the control logic, and writing assembly programs to test the behavior of these extensions.
+
+## Author
+
+Tran Minh Chau DO
+
+Léa DRION
 
 ## List of Exercises
 
