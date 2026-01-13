@@ -5,9 +5,9 @@ The goal of the project was to extend the Y86 processor by adding new instructio
 
 ## Author
 
-Tran Minh Chau DO
+- Tran Minh Chau DO
 
-Léa DRION
+- Léa DRION
 
 ## List of Exercises
 
